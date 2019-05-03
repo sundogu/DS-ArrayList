@@ -271,12 +271,14 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public final int lastIndexOf(Object o) {
-        for (int i = size - 1; i > -1; i--) {
-            if (array[i].equals(o)) {
-                return i;
+        if (o != null) {
+            for (int i = size - 1; i > -1; i--) {
+                if (array[i].equals(o)) {
+                    return i;
+                }
             }
-        }
-
+        }    
+       
         return -1;
     }
 
@@ -497,7 +499,7 @@ public class MyArrayList<T> implements List<T> {
         @Override
         public final void remove() {
             if (!canModify) {
-                throw new IllegalStateException("Cannot remove element without first calling next/prev");
+                throw new IllegalStateException("Cannot remove element without first calling next/previous");
             }
 
             safeShiftElementsLeft(index, size - 1, 1);
@@ -515,7 +517,7 @@ public class MyArrayList<T> implements List<T> {
         public final void set(T t) {
             if (!canModify) {
                 throw new IllegalStateException(
-                        "Cannot set element if add/remove has been called after the last call to next/prev");
+                        "Cannot set element if add/remove has been called after the last call to next/previous");
             }
             array[index - 1] = t;
         }
