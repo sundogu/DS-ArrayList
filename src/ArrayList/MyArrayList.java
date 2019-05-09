@@ -148,6 +148,11 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public final boolean addAll(int index, Collection c) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException(
+                    String.format("Cannot add element to index %d from list of size %d", index, size));
+        }
+        
         Object[] temp = c.toArray();
 
         if (size + temp.length >= capacity) {
