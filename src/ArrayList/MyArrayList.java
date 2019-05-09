@@ -126,14 +126,14 @@ public class MyArrayList<T> implements List<T> {
      * @param c - the collection of elements to be appended.
      * @return true if elements were added to the list.
      */
-    @Override @SuppressWarnings("unchecked")
-    public final boolean addAll(Collection c) {
+    @Override
+    public final boolean addAll(Collection<? extends T> c) {
         if (size + c.size() >= capacity) {
             this.resizeArray((size + c.size() - 1) - capacity);
         }
 
-        for (Object el : c) {
-            this.add((T) el);
+        for (T el : c) {
+            this.add(el);
         }
 
         return c.size() != 0;
@@ -147,12 +147,12 @@ public class MyArrayList<T> implements List<T> {
      * @return true if elements were added to the list.
      */
     @Override
-    public final boolean addAll(int index, Collection c) {
+    public final boolean addAll(int index, Collection<? extends T> c) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException(
                     String.format("Cannot add element to index %d from list of size %d", index, size));
         }
-        
+
         Object[] temp = c.toArray();
 
         if (size + temp.length >= capacity) {
@@ -197,7 +197,7 @@ public class MyArrayList<T> implements List<T> {
      * @return the replaced element.
      */
     @Override @SuppressWarnings("unchecked")
-    public final T set(int index, Object element) {
+    public final T set(int index, T element) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(
                     String.format("Cannot set element at index %d from list of size %d", index, size));
@@ -276,14 +276,12 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public final int lastIndexOf(Object o) {
-        if (o != null) {
-            for (int i = size - 1; i > -1; i--) {
-                if (array[i].equals(o)) {
-                    return i;
-                }
+        for (int i = size - 1; i > -1; i--) {
+            if (array[i].equals(o)) {
+                return i;
             }
-        }    
-       
+        }
+
         return -1;
     }
 
@@ -303,6 +301,10 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public final ListIterator<T> listIterator(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException(
+                    String.format("Cannot iterate element at index %d from list of size %d", index, size));
+        }
         return new MyListIterator(index);
     }
 
@@ -317,7 +319,7 @@ public class MyArrayList<T> implements List<T> {
     @Override @SuppressWarnings("unchecked")
     public final List<T> subList(int inclusiveLower, int exclusiveUpper) {
         if (inclusiveLower < 0 || inclusiveLower >= size || exclusiveUpper < 0 || exclusiveUpper > size) {
-            throw new ArrayIndexOutOfBoundsException(
+            throw new IndexOutOfBoundsException(
                     String.format("Cannot sublist elements from index %d to index %d from list of size %d"
                             , inclusiveLower, exclusiveUpper, size));
         }
@@ -504,7 +506,7 @@ public class MyArrayList<T> implements List<T> {
         @Override
         public final void remove() {
             if (!canModify) {
-                throw new IllegalStateException("Cannot remove element without first calling next/previous");
+                throw new IllegalStateException("Cannot remove element without first calling next/prev");
             }
 
             safeShiftElementsLeft(index, size - 1, 1);
@@ -522,7 +524,7 @@ public class MyArrayList<T> implements List<T> {
         public final void set(T t) {
             if (!canModify) {
                 throw new IllegalStateException(
-                        "Cannot set element if add/remove has been called after the last call to next/previous");
+                        "Cannot set element if add/remove has been called after the last call to next/prev");
             }
             array[index - 1] = t;
         }
