@@ -48,7 +48,7 @@ public class MyArrayList<T> implements List<T> {
      * @return the number of elements in the list.
      */
     @Override
-    public final int size() {
+    public int size() {
         return size;
     }
 
@@ -57,7 +57,7 @@ public class MyArrayList<T> implements List<T> {
      * @return true if the list contains no elements.
      */
     @Override
-    public final boolean isEmpty() {
+    public boolean isEmpty() {
         return size == 0;
     }
 
@@ -67,7 +67,7 @@ public class MyArrayList<T> implements List<T> {
      * @return true if the list contains the specified element.
      */
     @Override
-    public final boolean contains(Object o) {
+    public boolean contains(Object o) {
         return this.indexOf(o) >= 0;
     }
 
@@ -76,7 +76,7 @@ public class MyArrayList<T> implements List<T> {
      * @return Iterator for this list instance.
      */
     @Override
-    public final Iterator<T> iterator() {
+    public Iterator<T> iterator() {
         return new MyListIterator();
     }
 
@@ -85,7 +85,7 @@ public class MyArrayList<T> implements List<T> {
      * @return a shallow copy the array containing all the elements.
      */
     @Override
-    public final Object[] toArray() {
+    public Object[] toArray() {
         Object[] temp = new Object[size];
         for (int i = 0; i < size; temp[i] = array[i++]);
 
@@ -98,7 +98,7 @@ public class MyArrayList<T> implements List<T> {
      * @return true
      */
     @Override
-    public final boolean add(T o) {
+    public boolean add(T o) {
         this.add(size, o);
         return true;
     }
@@ -109,7 +109,7 @@ public class MyArrayList<T> implements List<T> {
      * @return true if the list contained the specified element.
      */
     @Override
-    public final boolean remove(Object o) {
+    public boolean remove(Object o) {
         int i = this.indexOf(o);
 
         if (i >= 0) {
@@ -127,7 +127,7 @@ public class MyArrayList<T> implements List<T> {
      * @return true if elements were added to the list.
      */
     @Override
-    public final boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(Collection<? extends T> c) {
         if (size + c.size() >= capacity) {
             this.resizeArray((size + c.size() - 1) - capacity);
         }
@@ -147,7 +147,7 @@ public class MyArrayList<T> implements List<T> {
      * @return true if elements were added to the list.
      */
     @Override
-    public final boolean addAll(int index, Collection<? extends T> c) {
+    public boolean addAll(int index, Collection<? extends T> c) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException(
                     String.format("Cannot add element to index %d from list of size %d", index, size));
@@ -171,7 +171,7 @@ public class MyArrayList<T> implements List<T> {
      * Set the list to size 0.
      */
     @Override
-    public final void clear() {
+    public void clear() {
         size = 0;
     }
 
@@ -181,7 +181,7 @@ public class MyArrayList<T> implements List<T> {
      * @return the element at the specified index in the list.
      */
     @Override @SuppressWarnings("unchecked")
-    public final T get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(
                     String.format("Cannot get element at index %d from list of size %d", index, size));
@@ -197,7 +197,7 @@ public class MyArrayList<T> implements List<T> {
      * @return the replaced element.
      */
     @Override @SuppressWarnings("unchecked")
-    public final T set(int index, T element) {
+    public T set(int index, T element) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(
                     String.format("Cannot set element at index %d from list of size %d", index, size));
@@ -214,7 +214,7 @@ public class MyArrayList<T> implements List<T> {
      * @param o - the element to be inserted.
      */
     @Override
-    public final void add(int index, T o) {
+    public void add(int index, T o) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException(
                     String.format("Cannot add element to index %d from list of size %d", index, size));
@@ -235,7 +235,7 @@ public class MyArrayList<T> implements List<T> {
      * @return the removed element from the specified index.
      */
     @Override @SuppressWarnings("unchecked")
-    public final T remove(int index) {
+    public T remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(
                     String.format("Cannot remove element at index %d from list of size %d", index, size));
@@ -255,7 +255,7 @@ public class MyArrayList<T> implements List<T> {
      *      * or -1 if list does not contain such element.
      */
     @Override
-    public final int indexOf(Object o) {
+    public int indexOf(Object o) {
         if (o != null) {
             for (int i = 0; i < size; i++) {
                 if (array[i].equals(o)) {
@@ -275,7 +275,7 @@ public class MyArrayList<T> implements List<T> {
      *      * or -1 if list does not contain such element.
      */
     @Override
-    public final int lastIndexOf(Object o) {
+    public int lastIndexOf(Object o) {
         for (int i = size - 1; i > -1; i--) {
             if (array[i].equals(o)) {
                 return i;
@@ -290,7 +290,7 @@ public class MyArrayList<T> implements List<T> {
      * @return the ListIterator for this MyArrayList instance.
      */
     @Override
-    public final ListIterator<T> listIterator() {
+    public ListIterator<T> listIterator() {
         return new MyListIterator();
     }
 
@@ -300,7 +300,7 @@ public class MyArrayList<T> implements List<T> {
      * @return the ListIterator for this MyArrayList instance with the iterator starting at the specified index.
      */
     @Override
-    public final ListIterator<T> listIterator(int index) {
+    public ListIterator<T> listIterator(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(
                     String.format("Cannot iterate element at index %d from list of size %d", index, size));
@@ -317,7 +317,7 @@ public class MyArrayList<T> implements List<T> {
      * @return a view of the specified range within this list
      */
     @Override @SuppressWarnings("unchecked")
-    public final List<T> subList(int inclusiveLower, int exclusiveUpper) {
+    public List<T> subList(int inclusiveLower, int exclusiveUpper) {
         if (inclusiveLower < 0 || inclusiveLower >= size || exclusiveUpper < 0 || exclusiveUpper > size) {
             throw new IndexOutOfBoundsException(
                     String.format("Cannot sublist elements from index %d to index %d from list of size %d"
@@ -337,7 +337,7 @@ public class MyArrayList<T> implements List<T> {
      * @return true if this list changed as a result of the call.
      */
     @Override @SuppressWarnings("unchecked")
-    public final boolean retainAll(Collection c) {
+    public boolean retainAll(Collection c) {
         int initSize = size;
         HashSet<T> lookup = new HashSet<>(c);
         this.removeIf(el -> !lookup.contains(el));
@@ -350,7 +350,7 @@ public class MyArrayList<T> implements List<T> {
      * @return true if this list changed as a result of the call.
      */
     @Override @SuppressWarnings("unchecked")
-    public final boolean removeAll(Collection c) {
+    public boolean removeAll(Collection c) {
         int initSize = size;
         HashSet<T> lookup = new HashSet<>(c);
         this.removeIf(lookup::contains);
@@ -363,7 +363,7 @@ public class MyArrayList<T> implements List<T> {
      * @return true if this list contains all of the elements in the specified collection
      */
     @Override @SuppressWarnings("unchecked")
-    public final boolean containsAll(Collection c) {
+    public boolean containsAll(Collection c) {
         HashSet<T> lookup = new HashSet<>(this);
 
         for (Object el : c) {
@@ -446,7 +446,7 @@ public class MyArrayList<T> implements List<T> {
          * @return true if next() can be called without error.
          */
         @Override
-        public final boolean hasNext() {
+        public boolean hasNext() {
             return index < size;
         }
 
@@ -455,7 +455,7 @@ public class MyArrayList<T> implements List<T> {
          * @return the next element in list
          */
         @Override @SuppressWarnings("unchecked")
-        public final T next() {
+        public T next() {
             canModify = true;
             return (T) array[index++];
         }
@@ -465,7 +465,7 @@ public class MyArrayList<T> implements List<T> {
          * @return true if previous() can be called without error
          */
         @Override
-        public final boolean hasPrevious() {
+        public boolean hasPrevious() {
             return index > 0;
         }
 
@@ -474,7 +474,7 @@ public class MyArrayList<T> implements List<T> {
          * @return the previous element in list
          */
         @Override @SuppressWarnings("unchecked")
-        public final T previous() {
+        public T previous() {
             canModify = true;
             return (T) array[--index];
         }
@@ -485,7 +485,7 @@ public class MyArrayList<T> implements List<T> {
          * @return index of next element in list, or size of list if no more elements next in line.
          */
         @Override
-        public final int nextIndex() {
+        public int nextIndex() {
             return index;
         }
 
@@ -495,7 +495,7 @@ public class MyArrayList<T> implements List<T> {
          * @return index of previous element in list, or -1 if no more elements previous in line.
          */
         @Override
-        public final int previousIndex() {
+        public int previousIndex() {
             return index - 1;
         }
 
@@ -504,7 +504,7 @@ public class MyArrayList<T> implements List<T> {
          * Cannot be called back to back.
          */
         @Override
-        public final void remove() {
+        public void remove() {
             if (!canModify) {
                 throw new IllegalStateException("Cannot remove element without first calling next/prev");
             }
@@ -521,7 +521,7 @@ public class MyArrayList<T> implements List<T> {
          * @param t - the replacing element.
          */
         @Override
-        public final void set(T t) {
+        public void set(T t) {
             if (!canModify) {
                 throw new IllegalStateException(
                         "Cannot set element if add/remove has been called after the last call to next/prev");
@@ -535,7 +535,7 @@ public class MyArrayList<T> implements List<T> {
          * @param t - the element to be added.
          */
         @Override
-        public final void add(T t) {
+        public void add(T t) {
             if (size == capacity) {
                 resizeArray(0);
             }
